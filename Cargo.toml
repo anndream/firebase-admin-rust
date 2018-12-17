@@ -3,5 +3,7 @@ name = "firebase-admin"
 version = "0.1.0"
 authors = ["Duncan Dean <duncangleeddean@gmail.com>"]
 edition = "2018"
+exclude = ["examples/*", "tests/*"]
 
 [dependencies]
+reqwest = "0.9.5"
