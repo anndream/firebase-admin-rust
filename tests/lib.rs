@@ -18,8 +18,4 @@ mod tests {
         assert_eq!(3, 3)
     }
 
-    #[test]
-    fn send_message() {
-        unimplemented!();
-    }
 }
