@@ -1,8 +1,5 @@
-extern crate reqwest;
-
 use std::{error::Error, fmt};
 use std::collections::HashMap;
-
 
 pub mod app;
 pub mod auth;
@@ -21,7 +18,28 @@ pub struct Admin {
 
 // TODO: Initialize SDK with google-service.json
 impl Admin {
+    /// Creates and initializes a Firebase app instance.
+    /// 
+    /// See Initialize the SDK and Initialize multiple apps for detailed documentation.
+    pub fn initialize_app(options: Option<app::AppOptions>, name: Option<String>) -> Result<app::App, String> {
+        
+        let default_app_options: app::AppOptions = app::AppOptions {
+            credential: Some(credential::Credential {}),
+            database_auth_variable_override: HashMap::new(),
+            database_url: String::from(""),
+            http_agent: HashMap::new(),
+            project_id: String::from(""),
+            service_account_id: String::from(""),
+            storage_bucket: String::from("")
+        };
 
+        let app = app::App {
+            name: name.unwrap_or(String::from("[DEFAULT]")),
+            options: options.unwrap_or(default_app_options)
+        };
+        
+        Ok(app)
+    }
 }
 
 #[derive(Debug)]
@@ -49,6 +67,3 @@ pub struct FirebaseArrayIndexError {
     error: FirebaseError,
     index: i32
 }
-
-
-

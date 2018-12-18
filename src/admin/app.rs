@@ -1,46 +1,57 @@
+use super::auth::Auth;
+use super::database::Database;
+use super::firestore::Firestore;
 use super::credential::Credential;
+use super::storage::Storage;
+use super::messaging::Messaging;
+use super::project_management::ProjectManagement;
+use super::instance_id::InstanceId;
 use std::collections::HashMap;
+use futures::prelude::*;
+use futures::future::Map;
 
+
+/// A Firebase app holds the initialization information for a collection of services.
+///
+/// Do not call this constructor directly. Instead, use admin.initialize_app() to create an app.
 #[derive(Clone)]
 pub struct App {
-    /// The (read-only) name for this app
-    /// 
-    /// The default app's name is "[DEFAULT]".
+    /// The (read-only) name for this app. The default app's name is "[DEFAULT]".
     pub name: String,
     pub options: AppOptions
 }
 
 impl App {
-    pub fn auth() {
-
+    pub fn auth(&self) -> Auth {
+        unimplemented!()
     }
 
-    pub fn database() {
-        
+    pub fn database(&self) -> Database {
+        unimplemented!()
     }
 
-    pub fn delete() {
-        
+    pub fn delete<F>(&self) -> Map<F, fn() -> ()> where F: Future<Item=()> {
+        unimplemented!()
     }
 
-    pub fn firestore() {
-        
+    pub fn firestore(&self) -> Firestore {
+        unimplemented!()
     }
 
-    pub fn instance_id() {
-
+    pub fn instance_id(&self) -> InstanceId {
+        unimplemented!()
     }
 
-    pub fn messaging() {
-
+    pub fn messaging(&self) -> Messaging {
+        unimplemented!()
     }
 
-    pub fn project_management() {
-
+    pub fn project_management(&self) -> ProjectManagement {
+        unimplemented!()
     }
 
-    pub fn storage() {
-
+    pub fn storage(&self) -> Storage {
+        unimplemented!()
     }
 }
 
