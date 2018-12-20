@@ -1,7 +1,8 @@
+use super::admin::Admin;
 use super::auth::Auth;
 use super::database::Database;
 use super::firestore::Firestore;
-use super::credential::Credential;
+use super::credentials::Credentials;
 use super::storage::Storage;
 use super::messaging::Messaging;
 use super::project_management::ProjectManagement;
@@ -15,13 +16,14 @@ use futures::future::Map;
 ///
 /// Do not call this constructor directly. Instead, use admin.initialize_app() to create an app.
 #[derive(Clone)]
-pub struct App {
+pub struct App<'a> {
     /// The (read-only) name for this app. The default app's name is "[DEFAULT]".
-    pub name: String,
-    pub options: AppOptions
+    pub name: &'a str,
+    pub options: AppOptions<'a>
 }
 
-impl App {
+impl<'a> App<'a> {
+
     pub fn auth(&self) -> Auth {
         unimplemented!()
     }
@@ -30,8 +32,8 @@ impl App {
         unimplemented!()
     }
 
-    pub fn delete<F>(&self) -> Map<F, fn() -> ()> where F: Future<Item=()> {
-        unimplemented!()
+    pub fn delete(&self) {
+        unimplemented!();
     }
 
     pub fn firestore(&self) -> Firestore {
@@ -56,11 +58,11 @@ impl App {
 }
 
 #[derive(Clone)]
-pub struct AppOptions {
-    pub credential: Option<Credential>,
-    pub database_auth_variable_override: HashMap<String, String>,
+pub struct AppOptions<'a> {
+    pub credentials: Credentials,
+    pub database_auth_variable_override: HashMap<&'a str, &'a str>,
     pub database_url: String,
-    pub http_agent: HashMap<String, String>,
+    pub http_agent: HashMap<&'a str, &'a str>,
     pub project_id: String,
     pub service_account_id: String,
     pub storage_bucket: String

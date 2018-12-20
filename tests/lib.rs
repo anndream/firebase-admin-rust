@@ -1,8 +1,8 @@
 extern crate firebase_admin;
 
-#[cfg(test)]
 mod tests {
-    use firebase_admin::admin::{Admin};
+
+    use firebase_admin as fb;
 
     #[test]
     fn it_works() {
@@ -10,12 +10,21 @@ mod tests {
     }
 
     #[test]
-    fn initialize_default_app() {
-        match Admin::initialize_app(None, None) {
-            Ok(app) => assert_eq!(app.name, "[DEFAULT]"),
-            Err(err_string) => panic!(err_string)
-        };
-        assert_eq!(3, 3)
+    fn deserialize_into_credentials() {
+        let settings = fb::credentials::Credentials::from_file("tests/service");
+        
+        assert_eq!("https://accounts.google.com/o/oauth2/auth", settings.auth_uri);
+        assert_eq!("-----BEGIN PRIVATE KEY-----\n[PRIVATE-KEY]\n-----END PRIVATE KEY-----\n", settings.private_key);
+    }
+
+    #[test]
+    fn build_and_initialize_app() {
+        let app = fb::admin::Admin::app_builder()
+            .with_credentials("tests/service")
+            .build_and_initialize();
+            
+        assert_eq!(app.unwrap().name, "[DEFAULT]");
+        
     }
 
 }
