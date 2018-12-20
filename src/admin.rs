@@ -12,9 +12,7 @@ pub struct Admin<'a> {
 
 // TODO: Initialize SDK with google-service.json
 impl<'a> Admin<'a> {
-    /// Creates and initializes a Firebase app instance.
-    /// 
-    /// See Initialize the SDK and Initialize multiple apps for detailed documentation.
+    /// Constructs an `AppBuilder` struct
     pub fn app_builder() -> AppBuilder<'a> {
         
         AppBuilder {
@@ -32,6 +30,8 @@ impl<'a> Admin<'a> {
 
 }
 
+/// Allows you to build your options for your app before it is 
+/// initialized.
 pub struct AppBuilder<'a> {
     name: Option<&'a str>,
     credentials: Option<credentials::Credentials>,
@@ -45,11 +45,15 @@ pub struct AppBuilder<'a> {
 
 impl<'a> AppBuilder<'a> {
 
+    // Optionally set the name of your app. Defaults to `"[DEFAULT]"`.
     pub fn with_name(mut self, name: &'a str) -> Self {
         self.name = Some(name);
         self
     }
 
+    /// Optionally specify the location of your app credentials JSON file.
+    /// Defaults to looking for Application Default Credentials and panics if
+    /// they cannot be found.
     pub fn with_credentials(mut self, credentials_file: &'a str) -> Self {
         let credentials = credentials::Credentials::from_file(credentials_file);
         println!("{}", credentials.project_id);
@@ -57,11 +61,16 @@ impl<'a> AppBuilder<'a> {
         self
     }
 
+    /// Optionally set the Database URL for your Firebase project.
+    /// Defaults to `[project-id].firebaseio.com`
     pub fn with_database_url(mut self, database_url: &'a str) -> Self {
         self.database_url = Some(database_url);
         self
     }
 
+    /// Optionally set the Project ID for the Firebase project you are
+    /// using. Defaults to the Project ID specified in your credentials
+    /// file.
     pub fn with_project_id(mut self, project_id: &'a str) -> Self {
         self.project_id = Some(project_id);
         self
@@ -77,6 +86,8 @@ impl<'a> AppBuilder<'a> {
         self
     }
 
+    /// Optionally set the Storage Bucket URL for your Firebase project.
+    /// Defaults to `[project-id].appspot.com`.
     pub fn with_storage_bucket(mut self, storage_bucket: &'a str) -> Self {
         self.storage_bucket = Some(storage_bucket);
         self

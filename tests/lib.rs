@@ -22,7 +22,6 @@ mod tests {
         let app = fb::admin::Admin::app_builder()
             .with_credentials("tests/service")
             .build_and_initialize();
-            
         assert_eq!(app.unwrap().name, "[DEFAULT]");
         
     }

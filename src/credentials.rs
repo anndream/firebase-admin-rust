@@ -14,11 +14,23 @@ pub struct Credentials {
 
 impl Credentials {
 
-    // Attempts to read from ...
+    /// Attempts to read Application Credentials from
+    /// specified file and then deserialize it to a 
+    /// `Credentials` struct.
     pub fn from_file(file: &str) -> Credentials {
         let mut settings = config::Config::new();
         settings.merge(config::File::with_name(file)).unwrap();
         println!("{}", settings.get_str("project_id").unwrap());
         settings.try_into().unwrap()
+    }
+
+    pub fn adc() -> Credentials {
+        let key = "GOOGLE_APPLICATION_CREDENTIALS";
+
+        if let Ok(value) = std::env::var(key) {
+            Credentials::from_file(&value)
+        } else {
+            panic!("No Application Credentials Found.");
+        }
     }
 }
