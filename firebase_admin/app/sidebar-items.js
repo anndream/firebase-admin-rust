@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["App","A Firebase app holds the initialization information for a collection of services."],["AppOptions",""]]});

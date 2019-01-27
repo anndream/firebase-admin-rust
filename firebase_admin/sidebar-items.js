@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["admin",""],["app",""],["auth",""],["credentials",""],["database",""],["firestore",""],["messaging",""],["project_management",""],["storage",""]]});

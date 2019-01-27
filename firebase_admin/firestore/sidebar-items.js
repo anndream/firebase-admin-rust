@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DocumentReference",""],["DocumentSnapshot",""],["FieldPath",""],["FieldValue",""],["Firestore",""],["GeoPoint",""],["Query",""],["QuerySnapshot",""],["Timestamp",""]]});
