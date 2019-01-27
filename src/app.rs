@@ -8,8 +8,6 @@ use super::messaging::Messaging;
 use super::project_management::ProjectManagement;
 use super::instance_id::InstanceId;
 use std::collections::HashMap;
-use futures::prelude::*;
-use futures::future::Map;
 
 
 /// A Firebase app holds the initialization information for a collection of services.

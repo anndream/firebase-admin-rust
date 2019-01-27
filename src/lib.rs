@@ -4,7 +4,6 @@
 #[macro_use]
 extern crate lazy_static;
 extern crate reqwest;
-extern crate futures;
 extern crate config;
 #[macro_use]
 extern crate serde_derive;
