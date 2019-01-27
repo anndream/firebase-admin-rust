@@ -16,13 +16,13 @@ use futures::future::Map;
 ///
 /// Do not call this constructor directly. Instead, use admin.initialize_app() to create an app.
 #[derive(Clone)]
-pub struct App<'a> {
+pub struct App {
     /// The (read-only) name for this app. The default app's name is "[DEFAULT]".
-    pub name: &'a str,
-    pub options: AppOptions<'a>
+    pub name: String,
+    pub options: AppOptions,
 }
 
-impl<'a> App<'a> {
+impl App {
 
     pub fn auth(&self) -> Auth {
         unimplemented!()
@@ -37,7 +37,9 @@ impl<'a> App<'a> {
     }
 
     pub fn firestore(&self) -> Firestore {
-        unimplemented!()
+        Firestore {
+            url: self.options.database_url.to_owned()
+        }
     }
 
     pub fn instance_id(&self) -> InstanceId {
@@ -58,11 +60,11 @@ impl<'a> App<'a> {
 }
 
 #[derive(Clone)]
-pub struct AppOptions<'a> {
+pub struct AppOptions {
     pub credentials: Credentials,
-    pub database_auth_variable_override: HashMap<&'a str, &'a str>,
+    pub database_auth_variable_override: HashMap<String, String>,
     pub database_url: String,
-    pub http_agent: HashMap<&'a str, &'a str>,
+    pub http_agent: HashMap<String, String>,
     pub project_id: String,
     pub service_account_id: String,
     pub storage_bucket: String
