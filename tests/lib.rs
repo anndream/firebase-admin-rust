@@ -23,7 +23,18 @@ mod tests {
             .with_credentials("tests/service")
             .build_and_initialize();
         assert_eq!(app.unwrap().name, "[DEFAULT]");
-        
+    }
+
+    #[test]
+    fn get_firestore_instance() {
+        let app = fb::admin::Admin::app_builder()
+            .with_credentials("tests/service")
+            .build_and_initialize();
+        let admin = app.unwrap();
+
+        let firestore = admin.firestore();
+
+        assert_eq!(firestore.url, admin.options.database_url);
     }
 
 }
